@@ -6,6 +6,7 @@ import MyPosts from "./pages/MyPosts";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
 import Feed from "./pages/Feed";
+import UserPoints from "./components/UserPoints";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import "./App.css";
@@ -34,6 +35,10 @@ function App() {
               <button onClick={logout}>Log Out</button>
             </li>
           )}
+          <li>
+            <UserPoints />
+          </li>
+          <li></li>
         </ul>
       </nav>
 

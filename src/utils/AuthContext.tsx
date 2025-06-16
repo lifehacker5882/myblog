@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { type User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { userDataExists } from "./userData";
 
 type AuthContextProps = {
   user: User | null;
@@ -23,6 +24,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
+
+      if (firebaseUser) {
+        userDataExists(firebaseUser.uid, firebaseUser.email || "");
+      }
+
       setLoading(false);
     });
 

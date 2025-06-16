@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { db } from "../../firebase";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  updateDoc,
+  increment,
+  doc,
+} from "firebase/firestore";
 import { useAuth } from "../../utils/AuthContext";
 
 type PostFormProps = {
@@ -26,6 +33,11 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
         createdAt: Timestamp.now(),
         userId: user.uid,
       });
+
+      await updateDoc(doc(db, "users", user.uid), {
+        points: increment(10),
+      });
+
       setTitle("");
       setContent("");
       onPostAdded();

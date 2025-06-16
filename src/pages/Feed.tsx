@@ -1,6 +1,6 @@
 import PostList from "../components/post/PostList";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { type Post } from "../types/post";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
