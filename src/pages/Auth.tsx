@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { auth } from "../firebase"; // Adjust the import path as necessary
+import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,13 +7,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 
-import React from "react";
-
-const Auth: React.FC = () => {
+const Auth = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
   const navigate = useNavigate();
   const { user } = useAuth();
 

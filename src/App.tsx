@@ -2,9 +2,10 @@ import { Routes, Route, Link, Outlet } from "react-router-dom";
 import { useAuth } from "./utils/AuthContext";
 import { logout } from "./utils/logout";
 
-import Home from "./pages/Home";
+import MyPosts from "./pages/MyPosts";
 import About from "./pages/About";
 import Auth from "./pages/Auth";
+import Feed from "./pages/Feed";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import "./App.css";
@@ -20,10 +21,13 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
+            <Link to="/myposts">My Posts</Link>
+          </li>
+          <li>
             <Link to="about">About</Link>
           </li>
           <li>
-            <Link to="auth">Auth</Link>
+            <Link to="auth">Login</Link>
           </li>
           {user && (
             <li>
@@ -34,6 +38,7 @@ function App() {
       </nav>
 
       <Routes>
+        <Route path="/" element={<Feed />} />
         <Route path="/auth" element={<Auth />} />
         <Route
           element={
@@ -42,7 +47,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/" element={<Home />} />
+          <Route path="/myposts" element={<MyPosts />} />
           <Route path="/about" element={<About />} />
         </Route>
         <Route path="*" element={<h1>Page not found</h1>} />

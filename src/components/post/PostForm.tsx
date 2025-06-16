@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { db } from "../../firebase";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { useAuth } from "../../utils/AuthContext";
 
 type PostFormProps = {
   onPostAdded: () => void;
@@ -10,11 +11,12 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { user } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!title || !content) return;
+    if (!title || !content || !user) return;
     setLoading(true);
 
     try {
@@ -22,6 +24,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
         title,
         content,
         createdAt: Timestamp.now(),
+        userId: user.uid,
       });
       setTitle("");
       setContent("");
