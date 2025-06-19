@@ -8,7 +8,10 @@ export const userDataExists = async (uid: string, email: string) => {
   if (!userSnap.exists()) {
     await setDoc(userRef, {
       email,
+      uid,
       points: 0,
+      badges: [],
+      postCount: 0,
     });
   }
 };
