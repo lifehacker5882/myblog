@@ -2,6 +2,7 @@ import type { Post } from "../../types/post";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../utils/AuthContext";
+import PostListContent from "./PostListContent";
 
 type PostListProps = {
   posts: Post[];
@@ -21,7 +22,7 @@ const PostList: React.FC<PostListProps> = ({ posts }) => {
       {posts.map((post) => (
         <div key={post.id}>
           <h2>{post.title}</h2>
-          <p>{post.content}</p>
+          <PostListContent contentJSON={post.content} />
           <p>
             {new Date(post.createdAt.seconds * 1000).toLocaleString("no-NO")}
           </p>

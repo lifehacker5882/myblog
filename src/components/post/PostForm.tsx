@@ -20,31 +20,47 @@ type PostFormProps = {
 
 const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
   const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
+  const [content, setContent] = useState<any>(null); // JSON
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useAuth();
 
-  if (!user) return;
+  if (!user) return null;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!title.trim() || !content) return;
 
-    if (!title.trim() || !content.trim()) return;
     setLoading(true);
 
-    await createPosts();
-    await updateProgress();
-    await awardBadges();
-
     try {
+      await createPosts();
+      await updateProgress();
+      await awardBadges();
+
       setTitle("");
-      setContent("");
+      setContent(null);
       onPostAdded();
     } catch (error) {
       console.log("Error adding post:", error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const createPosts = async () => {
+    await addDoc(collection(db, "posts"), {
+      title,
+      content, // JSON-lagring
+      createdAt: Timestamp.now(),
+      userId: user.uid,
+    });
+  };
+
+  const updateProgress = async () => {
+    await updateDoc(doc(db, "users", user.uid), {
+      points: increment(10),
+      postCount: increment(1),
+    });
   };
 
   const awardBadges = async () => {
@@ -64,26 +80,10 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
 
       if (newBadges.length > 0) {
         await updateDoc(userRef, {
-          badges: [...userData.badges, ...newBadges.map((badge) => badge.id)],
+          badges: [...userData.badges, ...newBadges.map((b) => b.id)],
         });
       }
     }
-  };
-
-  const updateProgress = async () => {
-    await updateDoc(doc(db, "users", user.uid), {
-      points: increment(10),
-      postCount: increment(1),
-    });
-  };
-
-  const createPosts = async () => {
-    await addDoc(collection(db, "posts"), {
-      title,
-      content,
-      createdAt: Timestamp.now(),
-      userId: user.uid,
-    });
   };
 
   return (
