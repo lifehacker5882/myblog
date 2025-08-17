@@ -12,6 +12,7 @@ import {
 import { useAuth } from "../../utils/AuthContext";
 import { allBadges } from "../../utils/badges";
 import { getLevels } from "../../utils/userLevels";
+import TextEditor from "../editor/TextEditor";
 
 type PostFormProps = {
   onPostAdded: () => void;
@@ -98,11 +99,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
       </div>
       <div>
         <label htmlFor="content">Content</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+        <TextEditor content={content} onChange={setContent} />
       </div>
       <button type="submit" disabled={loading}>
         {loading ? "Posting..." : "Publish"}
