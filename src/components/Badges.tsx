@@ -47,7 +47,7 @@ const Badges = () => {
           ))}
         </ul>
       ) : (
-        "You have no badges"
+        "Log in to see your badges"
       )}
     </div>
   );

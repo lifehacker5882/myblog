@@ -8,6 +8,10 @@ type AuthContextProps = {
   loading: boolean;
 };
 
+type AuthProviderProps = {
+  children: React.ReactNode;
+};
+
 const AuthContext = createContext<AuthContextProps>({
   user: null,
   loading: true,
@@ -15,9 +19,7 @@ const AuthContext = createContext<AuthContextProps>({
 
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 

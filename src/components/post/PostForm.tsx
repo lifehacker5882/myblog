@@ -23,46 +23,19 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useAuth();
 
+  if (!user) return;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!title || !content || !user) return;
+    if (!title.trim() || !content.trim()) return;
     setLoading(true);
 
+    await createPosts();
+    await updateProgress();
+    await awardBadges();
+
     try {
-      await addDoc(collection(db, "posts"), {
-        title,
-        content,
-        createdAt: Timestamp.now(),
-        userId: user.uid,
-      });
-
-      await updateDoc(doc(db, "users", user.uid), {
-        points: increment(10),
-        postCount: increment(1),
-      });
-
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
-      const userData = userSnap.data();
-
-      if (userData && Array.isArray(userData.badges)) {
-        const postCount = userData.postCount;
-        const level = getLevels(userData.points);
-
-        const newBadges = allBadges.filter(
-          (badge) =>
-            badge.earned({ postCount, level, lastPostDate: new Date() }) &&
-            !userData.badges.includes(badge.id)
-        );
-
-        if (newBadges.length > 0) {
-          await updateDoc(userRef, {
-            badges: [...userData.badges, ...newBadges.map((badge) => badge.id)],
-          });
-        }
-      }
-
       setTitle("");
       setContent("");
       onPostAdded();
@@ -71,6 +44,45 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const awardBadges = async () => {
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+    const userData = userSnap.data();
+
+    if (userData && Array.isArray(userData.badges)) {
+      const postCount = userData.postCount;
+      const level = getLevels(userData.points);
+
+      const newBadges = allBadges.filter(
+        (badge) =>
+          badge.earned({ postCount, level, lastPostDate: new Date() }) &&
+          !userData.badges.includes(badge.id)
+      );
+
+      if (newBadges.length > 0) {
+        await updateDoc(userRef, {
+          badges: [...userData.badges, ...newBadges.map((badge) => badge.id)],
+        });
+      }
+    }
+  };
+
+  const updateProgress = async () => {
+    await updateDoc(doc(db, "users", user.uid), {
+      points: increment(10),
+      postCount: increment(1),
+    });
+  };
+
+  const createPosts = async () => {
+    await addDoc(collection(db, "posts"), {
+      title,
+      content,
+      createdAt: Timestamp.now(),
+      userId: user.uid,
+    });
   };
 
   return (

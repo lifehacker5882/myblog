@@ -47,6 +47,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Feed />} />
+        <Route path="/about" element={<About />} />
         <Route path="/auth" element={<Auth />} />
         <Route
           element={
@@ -56,7 +57,6 @@ function App() {
           }
         >
           <Route path="/myposts" element={<MyPosts />} />
-          <Route path="/about" element={<About />} />
         </Route>
         <Route path="*" element={<h1>Page not found</h1>} />
       </Routes>

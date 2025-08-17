@@ -27,7 +27,7 @@ const UserPoints = () => {
       <div>Level: {level}</div>
     </div>
   ) : (
-    <div>Please log in to see your points.</div>
+    <div>Log in to see your points.</div>
   );
 };
 
