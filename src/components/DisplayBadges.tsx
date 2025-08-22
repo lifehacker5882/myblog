@@ -3,7 +3,7 @@ import { db } from "../firebase";
 import { useAuth } from "../utils/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 
-const Badges = () => {
+const DisplayBadges = () => {
   const [badges, setBadges] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -11,9 +11,12 @@ const Badges = () => {
 
   useEffect(() => {
     if (!user) {
-      setBadges([]), setLoading(false);
+      setBadges([]);
+      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     const fetchBadges = async () => {
       const badgeRef = doc(db, "users", user.uid);
@@ -22,13 +25,13 @@ const Badges = () => {
       if (badgeSnap.exists()) {
         const data = badgeSnap.data();
         if (Array.isArray(data.badges) && data.badges.length > 0) {
-          //console.log("You have the following badges: ", data.badges);
           setBadges(data.badges);
         } else {
-          //console.log("You have no badges");
+          setBadges([]);
         }
       } else {
-        console.log("No such document");
+        console.log("Unable to fetch badges");
+        setBadges([]);
       }
       setLoading(false);
     };
@@ -53,4 +56,4 @@ const Badges = () => {
   );
 };
 
-export default Badges;
+export default DisplayBadges;

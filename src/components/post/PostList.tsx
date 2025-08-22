@@ -12,8 +12,6 @@ const PostList: React.FC<PostListProps> = ({ posts }) => {
   const { user } = useAuth();
 
   const handleDelete = async (id: string) => {
-    console.log("delete");
-
     await deleteDoc(doc(db, "posts", id));
   };
 

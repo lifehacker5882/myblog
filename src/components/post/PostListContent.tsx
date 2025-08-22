@@ -3,9 +3,9 @@ import StarterKit from "@tiptap/starter-kit";
 
 const PostListContent = ({ contentJSON }: any) => {
   const editor = useEditor({
-    editable: false, // ikke redigerbar
+    editable: false,
     extensions: [StarterKit],
-    content: contentJSON, // her setter vi Tiptap JSON
+    content: contentJSON,
   });
 
   return <EditorContent editor={editor} />;

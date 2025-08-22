@@ -8,7 +8,7 @@ import Auth from "./pages/Auth";
 import Feed from "./pages/Feed";
 import UserPoints from "./components/UserPoints";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Badges from "./components/Badges";
+import DisplayBadges from "./components/DisplayBadges";
 
 import "./App.css";
 
@@ -40,7 +40,7 @@ function App() {
             <UserPoints />
           </li>
           <li>
-            <Badges />
+            <DisplayBadges />
           </li>
         </ul>
       </nav>

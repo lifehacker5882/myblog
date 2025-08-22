@@ -20,7 +20,7 @@ type PostFormProps = {
 
 const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
   const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<any>(null); // JSON
+  const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useAuth();
 
@@ -50,7 +50,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
   const createPosts = async () => {
     await addDoc(collection(db, "posts"), {
       title,
-      content, // JSON-lagring
+      content,
       createdAt: Timestamp.now(),
       userId: user.uid,
     });
