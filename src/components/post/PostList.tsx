@@ -5,6 +5,7 @@ import { useAuth } from "../../utils/AuthContext";
 import PostListContent from "./PostListContent";
 
 import { Button } from "@mattilsynet/design/react";
+import styles from "./PostList.module.css";
 
 type PostListProps = {
   posts: Post[];
@@ -20,7 +21,7 @@ const PostList: React.FC<PostListProps> = ({ posts }) => {
   return (
     <div>
       {posts.map((post) => (
-        <div key={post.id}>
+        <div key={post.id} className={styles.post}>
           <h2>{post.title}</h2>
           <PostListContent contentJSON={post.content} />
           <p>

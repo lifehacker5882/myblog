@@ -36,7 +36,7 @@ const Feed = () => {
   return (
     <>
       <div className={styles.container}>
-        <h1>All posts</h1>
+        <h1>Posts</h1>
         {loading ? (
           <div>
             Loading...

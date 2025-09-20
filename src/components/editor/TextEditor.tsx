@@ -15,6 +15,7 @@ import Underline from "@tiptap/extension-underline";
 import { type JSONContent } from "@tiptap/react";
 
 import { Button } from "@mattilsynet/design/react";
+import styles from "./TextEditor.module.css";
 
 type TextEditorProps = {
   content?: JSONContent;
@@ -59,7 +60,11 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, onChange }) => {
             {ctrl.label}
           </Button>
         ))}
-        <EditorContent editor={editor} />
+        <EditorContent
+          editor={editor}
+          className={styles.editorArea}
+          onClick={() => editor.commands.focus()}
+        />
         <FloatingMenu editor={editor}>This is the floating menu</FloatingMenu>
         <BubbleMenu editor={editor}>This is the bubble menu</BubbleMenu>
       </EditorContext.Provider>
