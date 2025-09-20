@@ -2,14 +2,16 @@
 
 React + TypeScript + Vite + Firebase app using Mattilsynet Design System and Tiptap.
 
-Live: https://lifehacker5882.github.io/myproject/
+## Live demo
+https://lifehacker5882.github.io/myproject/  
+Ingen oppsett nødvendig – åpne lenken for å bruke appen.
 
 ## Features
 
 - Email/password auth (Firebase Auth)
 - Rich text editor for posts (Tiptap)
 - Feed (all posts), My Posts, badges and points
-- Protected routes (only for authenticated users)
+- Protected routes
 - Deployed to GitHub Pages with CI
 
 ## Tech stack
@@ -48,8 +50,6 @@ Live: https://lifehacker5882.github.io/myproject/
    VITE_FIREBASE_MESSAGING_SENDER_ID=
    VITE_FIREBASE_APP_ID=
    VITE_FIREBASE_MEASUREMENT_ID=
-   # Valgfritt (kun hvis Firebase App Check er pålagt):
-   VITE_RECAPTCHA_V3_SITE_KEY=
    ```
 
 3. Kjør utviklingsserver
@@ -76,9 +76,7 @@ Live: https://lifehacker5882.github.io/myproject/
     }
   }
   ```
-
-- App Check (valgfritt, men anbefalt): hvis du pålegger App Check på Firestore/Auth, legg til en reCAPTCHA v3-leverandør og sett `VITE_RECAPTCHA_V3_SITE_KEY`.
-
+  
 ## Ruting og basebane
 
 - GitHub Pages serverer appen på `/myproject/`, så `vite.config.ts` er konfigurert med:
@@ -86,8 +84,7 @@ Live: https://lifehacker5882.github.io/myproject/
   ```ts
   export default defineConfig({ base: "/myproject/" });
   ```
-
-- Appen bruker `HashRouter`, som er den enkleste oppsettet for GitHub Pages.
+- Appen bruker `HashRouter`
 
 ## Distribusjon (GitHub Pages)
 
@@ -104,22 +101,6 @@ Dette repoet inkluderer en arbeidsflyt på `.github/workflows/main.yml` som bygg
 - `npm run preview` – forhåndsvis bygget app lokalt
 - `npm run lint` – kjør ESLint
 
-## Feilsøking
-
-- Hvit/blank side på Pages:
-  - Sørg for at `vite.config.ts` har `base: '/myproject/'`
-  - Hard oppdatering (Ctrl+F5) og sjekk Konsoll/Nettside for 404 på ressurser
-- “Context access might be invalid: VITE\_\*” i arbeidsflytredigereren:
-  - En referert hemmelighet mangler eller er utenfor omfang; legg den til under Innstillinger → Hemmeligheter og variabler → Handlinger
-  - Hvis du bruker miljø-skopte hemmeligheter, legg til `environment: github-pages` til `build`-jobben
-- 403/CORS til Firestore (inkognito/andre nettlesere):
-  - Hvis App Check er pålagt, må du konfigurere reCAPTCHA v3 og sette `VITE_RECAPTCHA_V3_SITE_KEY`
-  - Autoriserte domener må inkludere `lifehacker5882.github.io`
-- `npm ci` mislykkes i CI uten en låsefil:
-  - Enten forplikt `package-lock.json` eller bytt til `npm install` i arbeidsflyten
-- Feeden viser ingen innlegg:
-  - Sjekk Firestore-regler og at `posts`-samlingen eksisterer med `createdAt`-feltet som brukes i sortering
-
 ## Merknader
 
-- Brukergrensesnittet følger Mattilsynet Design Systems retningslinjer for typografi og farger. Prosjekt-spesifikk CSS fokuserer på layout, avstand og subtile effekter.
+- Brukergrensesnittet følger Mattilsynet Design Systems retningslinjer for typografi og farger.
