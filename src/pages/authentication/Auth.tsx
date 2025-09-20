@@ -35,7 +35,7 @@ const Auth = () => {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Authentication error:", error);
       setError("Authentication failed. Please try again.");
     }
