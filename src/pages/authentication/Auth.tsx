@@ -42,7 +42,7 @@ const Auth = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>{isRegistering ? "Register" : "Log in"}</h2>
       <form onSubmit={handleSubmit}>
         <Field>
@@ -63,7 +63,7 @@ const Auth = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Field>
-        <div className={styles.container}>
+        <div className={styles.buttons}>
           <Button data-variant="primary" type="submit">
             {isRegistering ? "Register" : "Log in"}
           </Button>

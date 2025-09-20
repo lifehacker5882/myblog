@@ -1,6 +1,8 @@
+import styles from "./About.module.css";
+
 const About = () => {
   return (
-    <>
+    <div className={styles.container}>
       <h1>About me</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut laudantium
@@ -15,7 +17,7 @@ const About = () => {
         cumque architecto veniam blanditiis! Aperiam reiciendis tenetur porro
         impedit a nesciunt quidem iste facilis molestias, laborum velit quaerat?
       </p>
-    </>
+    </div>
   );
 };
 
