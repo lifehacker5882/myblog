@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
-import { auth } from "../../firebase";
+import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../utils/AuthContext";
-
-import { Field, Button } from "@mattilsynet/design/react";
-import styles from "./Auth.module.css";
+import { useAuth } from "../utils/AuthContext";
 
 const Auth = () => {
   const [email, setEmail] = useState<string>("");
@@ -45,7 +42,7 @@ const Auth = () => {
     <div>
       <h2>{isRegistering ? "Register" : "Log in"}</h2>
       <form onSubmit={handleSubmit}>
-        <Field>
+        <div>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -53,8 +50,8 @@ const Auth = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-        </Field>
-        <Field>
+        </div>
+        <div>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -62,19 +59,12 @@ const Auth = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </Field>
-        <div className={styles.container}>
-          <Button data-variant="primary" type="submit">
-            {isRegistering ? "Register" : "Log in"}
-          </Button>
-          <Button
-            data-variant="secondary"
-            onClick={() => setIsRegistering(!isRegistering)}
-          >
-            {isRegistering ? "Got an account? Log in" : "New user? Register"}
-          </Button>
         </div>
+        <button type="submit">{isRegistering ? "Register" : "Log in"}</button>
       </form>
+      <button onClick={() => setIsRegistering(!isRegistering)}>
+        {isRegistering ? "Got an account? Log in" : "New user? Register"}
+      </button>
       {error && <p>{error}</p>}
     </div>
   );

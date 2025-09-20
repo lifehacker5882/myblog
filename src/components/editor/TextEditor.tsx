@@ -14,10 +14,8 @@ import Text from "@tiptap/extension-text";
 import Highlight from "@tiptap/extension-highlight";
 import Underline from "@tiptap/extension-underline";
 
-import { Button } from "@mattilsynet/design/react";
-
 type TextEditorProps = {
-  content?: any;
+  content?: any; // JSON-initial content
   onChange?: (content: any) => void;
 };
 
@@ -54,14 +52,14 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, onChange }) => {
     <>
       <EditorContext.Provider value={providerValue}>
         {controls.map((ctrl) => (
-          <Button
+          <button
             key={ctrl.label}
             onClick={() => ctrl.command(editor)}
             disabled={ctrl.disabled?.(editor) ?? false}
             className={ctrl.isActive?.(editor) ? "is-active" : ""}
           >
             {ctrl.label}
-          </Button>
+          </button>
         ))}
         <EditorContent editor={editor} />
         <FloatingMenu editor={editor}>This is the floating menu</FloatingMenu>

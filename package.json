@@ -14,7 +14,6 @@
     "@editorjs/quote": "^2.7.6",
     "@editorjs/raw": "^2.5.1",
     "@editorjs/simple-image": "^1.6.0",
-    "@mattilsynet/design": "^2.1.6",
     "@tiptap/extension-blockquote": "^3.2.0",
     "@tiptap/extension-code-block": "^3.2.0",
     "@tiptap/extension-emoji": "^3.2.0",

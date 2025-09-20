@@ -14,9 +14,6 @@ import { allBadges } from "../../utils/badges";
 import { getLevels } from "../../utils/userLevels";
 import TextEditor from "../editor/TextEditor";
 
-import { Button } from "@mattilsynet/design/react";
-import { Field } from "@mattilsynet/design/react";
-
 type PostFormProps = {
   onPostAdded: () => void;
 };
@@ -91,7 +88,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field>
+      <div>
         <label htmlFor="title">Title</label>
         <input
           id="title"
@@ -99,14 +96,14 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-      </Field>
+      </div>
       <div>
         <label htmlFor="content">Content</label>
         <TextEditor content={content} onChange={setContent} />
       </div>
-      <Button type="submit" disabled={loading}>
+      <button type="submit" disabled={loading}>
         {loading ? "Posting..." : "Publish"}
-      </Button>
+      </button>
     </form>
   );
 };
