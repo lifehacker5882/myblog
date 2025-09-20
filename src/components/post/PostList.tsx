@@ -4,11 +4,15 @@ import { db } from "../../firebase";
 import { useAuth } from "../../utils/AuthContext";
 import PostListContent from "./PostListContent";
 
+import { Button } from "@mattilsynet/design/react";
+import { useState } from "react";
+
 type PostListProps = {
   posts: Post[];
 };
 
 const PostList: React.FC<PostListProps> = ({ posts }) => {
+  const [post, setPost] = useState([]);
   const { user } = useAuth();
 
   const handleDelete = async (id: string) => {
@@ -25,7 +29,12 @@ const PostList: React.FC<PostListProps> = ({ posts }) => {
             {new Date(post.createdAt.seconds * 1000).toLocaleString("no-NO")}
           </p>
           {user && user.uid === post.userId && (
-            <button onClick={() => handleDelete(post.id)}>Delete</button>
+            <Button
+              data-variant="primary"
+              onClick={() => handleDelete(post.id)}
+            >
+              Delete
+            </Button>
           )}
         </div>
       ))}

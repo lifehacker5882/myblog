@@ -1,12 +1,16 @@
-import PostList from "../components/post/PostList";
+import PostList from "../../components/post/PostList";
 
 import { useState, useEffect } from "react";
-import { type Post } from "../types/post";
+import { type Post } from "../../types/post";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
+import { Spinner } from "@mattilsynet/design/react";
+
+import styles from "./Feed.module.css";
 
 const Feed = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchPosts = async () => {
     try {
@@ -20,6 +24,8 @@ const Feed = () => {
       setPosts(data);
     } catch (error) {
       console.error("Error fetching posts:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -29,9 +35,16 @@ const Feed = () => {
 
   return (
     <>
-      <div>
+      <div className={styles.container}>
         <h1>All posts</h1>
-        <PostList posts={posts} />{" "}
+        {loading ? (
+          <div>
+            Loading...
+            <Spinner />
+          </div>
+        ) : (
+          <PostList posts={posts} />
+        )}
       </div>
     </>
   );
