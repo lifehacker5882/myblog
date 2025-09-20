@@ -6,18 +6,18 @@ import StarterKit from "@tiptap/starter-kit";
 import { useMemo } from "react";
 import CodeBlock from "@tiptap/extension-code-block";
 import Heading from "@tiptap/extension-heading";
-/* import Emoji, { gitHubEmojis } from "@tiptap/extension-emoji"; */
 import { controls } from "./TextEditorCommands";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Highlight from "@tiptap/extension-highlight";
 import Underline from "@tiptap/extension-underline";
+import { type JSONContent } from "@tiptap/react";
 
 import { Button } from "@mattilsynet/design/react";
 
 type TextEditorProps = {
-  content?: any;
+  content?: JSONContent;
   onChange?: (content: any) => void;
 };
 

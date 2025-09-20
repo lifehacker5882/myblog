@@ -9,6 +9,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
+import { type JSONContent } from "@tiptap/react";
 import { useAuth } from "../../utils/AuthContext";
 import { allBadges } from "../../utils/badges";
 import { getLevels } from "../../utils/userLevels";
@@ -23,7 +24,7 @@ type PostFormProps = {
 
 const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
   const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<any>(null);
+  const [content, setContent] = useState<JSONContent>({} as JSONContent);
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useAuth();
 
@@ -41,7 +42,7 @@ const PostForm: React.FC<PostFormProps> = ({ onPostAdded }) => {
       await awardBadges();
 
       setTitle("");
-      setContent(null);
+      setContent({} as JSONContent);
       onPostAdded();
     } catch (error) {
       console.log("Error adding post:", error);

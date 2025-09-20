@@ -5,14 +5,12 @@ import { useAuth } from "../../utils/AuthContext";
 import PostListContent from "./PostListContent";
 
 import { Button } from "@mattilsynet/design/react";
-import { useState } from "react";
 
 type PostListProps = {
   posts: Post[];
 };
 
 const PostList: React.FC<PostListProps> = ({ posts }) => {
-  const [post, setPost] = useState([]);
   const { user } = useAuth();
 
   const handleDelete = async (id: string) => {
