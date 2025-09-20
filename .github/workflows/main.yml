@@ -40,6 +40,8 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
+      - name: debug env
+        run: echo $VITE_FIREBASE_PROJECT_ID
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -36,8 +36,10 @@ const Auth = () => {
         await signInWithEmailAndPassword(auth, email, password);
       }
     } catch (error: unknown) {
-      console.error("Authentication error:", error);
-      setError("Authentication failed. Please try again.");
+      // Surface Firebase error codes to aid debugging (e.g., auth/operation-not-allowed, auth/invalid-credential)
+      const err = error as { code?: string; message?: string };
+      console.error("Authentication error:", err);
+      setError(`Auth failed${err?.code ? ` (${err.code})` : ""}. ${err?.message ?? "Please try again."}`);
     }
   };
 
