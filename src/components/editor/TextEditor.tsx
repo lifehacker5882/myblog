@@ -18,7 +18,7 @@ import { Button } from "@mattilsynet/design/react";
 
 type TextEditorProps = {
   content?: JSONContent;
-  onChange?: (content: any) => void;
+  onChange?: (content: JSONContent) => void;
 };
 
 const TextEditor: React.FC<TextEditorProps> = ({ content, onChange }) => {
@@ -31,10 +31,6 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, onChange }) => {
       Paragraph,
       Underline,
       Text,
-      /* Emoji.configure({
-        emojis: gitHubEmojis,
-        enableEmoticons: true,
-      }), */
       ListItem,
       Heading.configure({
         levels: [1, 2, 3],
